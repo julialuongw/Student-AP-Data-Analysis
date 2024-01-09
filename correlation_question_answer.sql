@@ -18,7 +18,8 @@ WITH Candidate_feeders AS (
 				ELSE (E.District = A.District) # For AP schools that are in Unified School District or Elementary School District or SPECIAL Distrcts, we include this ele school as a feeder if and only if it is in the same district as that of A's school. No K-12 schools are considered because they all but at most 1 die at the first check. 
 			END
 ) 
-SELECT AP_School_Name, ap_pass_rate, 
+SELECT AP_School_Name, 
+	ap_pass_rate, 
 	SUM(Ela.Mean_Scale_Score * Ela.Students_with_Scores) / SUM(Ela.Students_with_Scores) AS Feeders_ELA_Weighted_Mean,
     SUM(Math.Mean_Scale_Score * Math.Students_with_Scores) / SUM(Math.Students_with_Scores) AS Feeders_MATH_Weighted_Mean
 FROM Candidate_feeders C
