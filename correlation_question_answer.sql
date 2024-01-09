@@ -1,7 +1,13 @@
 # This script joins to each school reporting AP scores the 3 closest elementary schools containing grade 3 and belonging to the correct district (determined by a more complex criteria). It then computes the weighted average of the CAASPP ELA & MATH scores of those 3 schools. The output is all 84 AP-reporting schools paired with an ELA-weighted average and MATH-weighted average, ready to be graphed. 
 # Dependencies: the functions compute_ap_pass_rate, great_circle_distance, and has_grade_3. the tables Ap_schools, Vosd, Math, Ela. 
 WITH Candidate_feeders AS (
-	SELECT A.CDSCode AS AP_CDSCode, A.School AS AP_School_Name, ap_pass_rate, E.CDSCode AS C_CDSCode, E.School AS C_School_Name, E.GSoffered AS Grades, ROW_NUMBER() OVER (PARTITION BY A.School ORDER BY great_circle_distance(E.Latitude, E.Longitude, A.Latitude, A.Longitude) ASC) AS dist_rank
+	SELECT A.CDSCode AS AP_CDSCode, 
+		A.School AS AP_School_Name, 
+        ap_pass_rate, 
+        E.CDSCode AS C_CDSCode, 
+        E.School AS C_School_Name, 
+        E.GSoffered AS Grades, 
+        ROW_NUMBER() OVER (PARTITION BY A.School ORDER BY great_circle_distance(E.Latitude, E.Longitude, A.Latitude, A.Longitude) ASC) AS dist_rank
 	FROM Ap_schools A
 		LEFT JOIN ( 
 			SELECT * FROM Vosd WHERE has_grade_3(Vosd.GSoffered) # includes K-12 schools
