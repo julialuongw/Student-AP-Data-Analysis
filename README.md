@@ -1,3 +1,3 @@
 # Student-AP-Data-Analysis
 
-investigating factors that influence AP Scores for San Diego County's 695 public schools. a remastering of my analysis done in 2017 for the Biocom Student Data hackathon. 
+Performed a data analysis of test scores across 700 public schools using MySQL and Tableau, confirming demographic factors related to student achievement and reporting findings through an interactive dashboard. 
